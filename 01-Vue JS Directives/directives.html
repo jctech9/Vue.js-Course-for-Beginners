@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+         background-color: black;
+         height: 40px;
+        }
+
+        [v-cloak]{
+            display: none; /*Selecione qualquer elemento que tenha o atributo v-cloak, e aplique display: none nele.”*/
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak> <!--[v-cloak]= esconde o conteúdo até que o Vue esteja totalmente carregado, Evita que o usuário veja o texto {{ variavel }} aparecendo cru na tela por alguns milissegundos antes de o Vue substituir pelo valor real.-->
+        {{greeting}} 
+        <br>
+        <input v-model="greeting"> <!-- [v-model]= usada para criar uma ligação automática entre o valor de um campo de formulário (como input) e uma variável do Vue.-->
+        
+        <div v-show="isVisible" class="box"> </div> <!-- [v-show]= mostra ou esconde um elemento HTML sem removê-lo do DOM-->
+        <br>
+        <div v-if="removable"> <p>Text for test v-if </p></div> <!--[v-if]= adiciona ou remove o elemento HTML do DOM dependendo da condição-->
+
+    </div>
+
+    <!--Using Vue from CDN-->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        let app = Vue.createApp({ //let= criar uma variável cujo valor pode mudar durante a execução do código.
+            data: function () {
+                return {
+                    greeting: 'Hello Vue 3 test', // greeting= variavél
+                    isVisible: true,
+                    removable: false
+                }
+            }
+        })
+        app.mount('#app') //montar a aplicação Vue dentro de um elemento HTML específico
+    </script>
+
+</body>
+
+</html>

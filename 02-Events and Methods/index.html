@@ -1,0 +1,94 @@
+<!--Eventos e metodos: 
+1. Eventos: ações que o ususário executa no sites, precionar certas teclas, clicar em certos botões... (etc) 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        [v-cloak]{
+            display: none; /*Selecione qualquer elemento que tenha o atributo v-cloak, e aplique display: none nele.”*/
+        }
+
+        .box{
+         background-color: black;
+         height: 50px;
+        }
+
+        .box2{
+         background-color: rgb(248, 4, 4);
+         height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="app" v-cloak>
+     
+        <!--[@keyup.enter="alertaFun"]: ao pressionar enter ele chama a função que exibe um alerta, passando por parametro o texto digitado -->
+        <input @keyup.enter="alertaFun(v)" v-model="v">
+        
+        <br>
+        
+        <button v-on:click="isVisible = true" >Show box</button> <!--[v-on]: esperando pelo evento,[click]: do tipo click -->
+        <!--
+        ["isVisible = true"] seta á variavel para o valor determinado 
+        -->
+
+        <button @click="isVisible = false" >Hide box</button>
+        <!--
+        [@event]: essa pode ser outra notação mais simples
+        -->
+
+        <button v-on:click="isVisible = !isVisible" >Toggle box</button>
+        <!--
+        [!isVisible]: alterna os valores de false para true etc..
+        -->
+
+
+        <!--METODOS, criei uma função tooglebox-->
+        <button @click="toggleBox" >toggleBox 2</button>
+
+        
+        <br>
+
+        <div v-show="isVisible" class="box"> </div>
+        
+
+        <div v-show="isVisible2" class="box2"> </div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        let app = Vue.createApp({ 
+            data: function () {
+                return {
+                    v: '',
+                    isVisible: false,
+                    isVisible2: false
+                }
+            },
+            methods: { //[methods]: objeto que contém funções, lugar onde você define o comportamento do seu componente, ções que ele pode executar.
+                toggleBox(){
+                    this.isVisible2 = !this.isVisible2
+                },
+
+                alertaFun(v){
+                    alert("You Typing: " + v);
+                }
+            }
+
+        })
+        app.mount('#app') 
+    </script>
+    
+</body>
+</html>

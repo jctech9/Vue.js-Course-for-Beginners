@@ -1,0 +1,83 @@
+<!--
+ Component Props: garantir que os componentes sejam reutilizáveis e 
+ autossuficientes, permitindo que o componente filho seja configurado 
+ pelo componente pai que o utiliza
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            margin: 10px;
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="app">
+        
+        <custom-form/> 
+        
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        let app = Vue.createApp({ 
+            data: function () {
+                
+            },
+            
+        })
+        
+   
+        app.component ('custom-form',{
+            template: `
+                <form @submit.prevent="handleSubmit"> 
+                    <h1>{{ title }}</h1>
+                    <custom-input type="email" v-model="email"/>
+                    <custom-input type="password" v-model="password"/>
+                    <button>Log in</button>
+                </form>
+            `,
+
+            components: ['custom-input'],
+            
+            data(){ 
+                return{
+                    title: 'Login Form', 
+                    email: '',
+                    password: ''
+
+                }
+            },
+
+            methods: {
+                handleSubmit(){
+                    alert("Seu email: " + this.email);
+                    alert("Sua senha: " + this.password);
+                }
+            }
+            
+        })
+
+        app.component ('custom-input', {
+            template: `
+                <label>
+                    {{ label }}
+                     <input type="text">
+                </label>
+            `
+        })
+
+        app.mount('#app') 
+    </script>
+    
+</body>
+</html>
+

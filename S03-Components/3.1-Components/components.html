@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            margin: 10px;
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="app">
+        
+        <custom-form/> <!--[<custom-form/>]: não é uma tag padrão html-->
+        
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        let app = Vue.createApp({ 
+            data: function () {
+                
+            },
+            
+        })
+        
+        //[app.component]: componentes personalizaveis, recebe 2 argumentos (Nome-tag-html, Objeto de Opções)
+        app.component ('custom-form',{
+            template: `
+                <form @submit.prevent="handleSubmit"> <!--[prevent] evitar o carregamento de pagina, não necessário  -->
+                    <h1>{{title}}</h1>
+                    <input type="email" v-model="email">
+                    <input type="password" v-model="password">
+                    <button>Log in</button>
+                </form>
+            `,
+            data(){ //valores o Vue deve monitorar para que, sempre que forem alterados, a interface do usuário (o DOM) seja atualizada de forma eficiente
+                return{
+                    title: 'Login Form', // [title]: é uma variavél 
+            
+                    //exige que as variáveis referenciadas (email e password) 
+                    // existam no escopo do estado reativo do componente, que é estabelecido pela função data()
+                    email: '',
+                    password: ''
+
+                }
+            },
+
+            methods: {
+                handleSubmit(){
+                    alert("Seu email: " + this.email);
+                    alert("Sua senha: " + this.password);
+                }
+            }
+            
+        })
+
+        app.mount('#app') 
+    </script>
+    
+</body>
+</html>
+
